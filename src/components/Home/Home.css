@@ -1,0 +1,44 @@
+#home-page,
+#home-page img {
+  position: relative;
+  padding: 0;
+}
+
+#home-page img {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+#home-page::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+
+  height: 100%;
+  width: 100%;
+
+  background-color: hsl(0, 0%, 0%, 0.7);
+  z-index: 2;
+}
+
+.copy-overlay {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  padding-left: 1em;
+  width: 90%;
+
+  z-index: 2;
+}
+
+.copy-overlay h1 {
+  font-size: clamp(2rem, 7vw, 5rem);
+}
+
+.btn-login {
+  padding: 0.5rem 2rem !important;
+}
