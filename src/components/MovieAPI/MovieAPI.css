@@ -1,0 +1,23 @@
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.movie-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+/* .movie-container button {
+  width: 100px;
+  outline: solid 2px red;
+} */
+
+.movie-story {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
