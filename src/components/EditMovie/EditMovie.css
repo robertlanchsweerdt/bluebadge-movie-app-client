@@ -1,0 +1,36 @@
+.edit-movie-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'title'
+    'movie'
+    'form';
+}
+
+.edit-movie-img {
+  grid-area: movie;
+}
+
+.edit-title {
+  grid-area: title;
+}
+
+.edit-form {
+  grid-area: form;
+}
+
+@media (min-width: 835px) {
+  .edit-movie-wrapper {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100px auto;
+    grid-template-areas:
+      'movie     title'
+      'movie     form';
+  }
+
+  .edit-movie-img,
+  .edit-title,
+  .edit-form {
+    padding-left: 2rem;
+  }
+}

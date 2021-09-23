@@ -1,96 +1,51 @@
 import React from 'react';
-import {
-  Container,
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Button,
-  ButtonGroup,
-} from 'reactstrap';
-import movieImg from '../../imgs/movie.jpeg';
-import './MovieAPI.css';
+import { Container } from 'reactstrap';
+import DisplayMovieCards from '../DisplayMovies/DisplayMovieCards';
 
-const MovieAPI = () => {
+const MovieAPI = (props) => {
+  props.setOdb(true);
+
   const fooMovie = [
     {
-      img: movieImg,
-      title: 'Some Title',
+      id: 0,
+      Poster:
+        'https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg',
+      Title: 'Star Wars',
+      Rated: 'PG',
+      Released: '25 May 1977',
+      Runtime: '131 min',
+      Genre: 'Action, Adventure, Fantasy',
+      Plot: "Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee and two droids to save the galaxy from the Empire's world-destroying battle station, while also attempting to rescue Princess Leia from the mysterious Darth Vad",
     },
     {
-      img: movieImg,
-      title: 'Some Title',
+      id: 1,
+      Poster:
+        'https://m.media-amazon.com/images/M/MV5BYmU1NDRjNDgtMzhiMi00NjZmLTg5NGItZDNiZjU5NTU4OTE0XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg',
+      Title: 'Star Wars: Episode V - The Empire Strikes Back',
+      Rated: 'PG',
+      Released: '20 Jun 1980',
+      Runtime: '131 min',
+      Genre: 'Action, Adventure, Fantasy',
+      Plot: 'After the Rebels are brutally overpowered by the Empire on the ice planet Hoth, Luke Skywalker begins Jedi training with Yoda, while his friends are pursued across the galaxy by Darth Vader and bounty hunter Boba Fett',
     },
     {
-      img: movieImg,
-      title: 'Some Title',
-    },
-    {
-      img: movieImg,
-      title: 'Some Title',
-    },
-    {
-      img: movieImg,
-      title: 'Some Title',
-    },
-    {
-      img: movieImg,
-      title: 'Some Title',
+      id: 2,
+      Poster:
+        'https://m.media-amazon.com/images/M/MV5BOWZlMjFiYzgtMTUzNC00Y2IzLTk1NTMtZmNhMTczNTk0ODk1XkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SX300.jpg',
+      Title: 'Star Wars: Episode VI - Return of the Jedi',
+      Rated: 'PG',
+      Released: '25 May 1983',
+      Runtime: '131 min',
+      Genre: 'Action, Adventure, Fantasy',
+      Plot: "After a daring mission to rescue Han Solo from Jabba the Hutt, the Rebels dispatch to Endor to destroy the second Death Star. Meanwhile, Luke struggles to help Darth Vader back from the dark side without falling into the Emperor's tr",
     },
   ];
-
-  const MovieBox = () => {
-    return (
-      <>
-        <ul className='movie-container mt-5'>
-          {fooMovie.map((movie, index) => {
-            return (
-              <div>
-                <Card>
-                  <CardImg
-                    top
-                    width='100%'
-                    src={movie.img}
-                    alt='Card image cap'
-                  />
-                  <CardBody>
-                    <CardTitle
-                      tag='h5'
-                      className='text-dark fw-bold text-uppercase'
-                    >
-                      {movie.title}
-                    </CardTitle>
-                    <CardSubtitle
-                      tag='h6'
-                      className='mb-2 text-muted fst-italic'
-                    >
-                      {movie.title}
-                    </CardSubtitle>
-                    <CardText className='text-dark movie-story'>
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </CardText>
-                    <div className='d-flex gap-1 justify-content-between'>
-                      <Button color='primary'>View</Button>
-                      <Button color='success'>Add</Button>
-                    </div>
-                  </CardBody>
-                </Card>
-              </div>
-            );
-          })}
-        </ul>
-      </>
-    );
-  };
 
   return (
     <>
       <Container className='mt-5'>
         <h1>Search the Movie API</h1>
-        <MovieBox />
+        <DisplayMovieCards mockAPI={fooMovie} odb={props.odb} />
       </Container>
     </>
   );
