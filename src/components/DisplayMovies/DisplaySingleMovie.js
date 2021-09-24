@@ -36,8 +36,7 @@ const ModalExample = (props) => {
         <ModalFooter>
           {props.odb ? (
             <>
-              {console.log('I am the modal -->', props.odb)}
-              <Button color='primary' onClick={props.toggle}>
+              <Button color='primary' onClick={props.addMovie}>
                 Add to Watch List
               </Button>
               <Button color='secondary' onClick={props.toggle}>
@@ -49,8 +48,11 @@ const ModalExample = (props) => {
               <Button color='primary'>
                 <Link to='/edit'>Edit</Link>
               </Button>
-              <Button color='warning' onClick={props.toggle}>
+              <Button color='warning' onClick={props.removeMovie}>
                 Remove from Watch List
+              </Button>
+              <Button color='secondary' onClick={props.toggle}>
+                Cancel
               </Button>
             </>
           )}

@@ -1,20 +1,28 @@
 import React, { useState } from 'react';
 import { Container, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 import { Rating, RatingView } from 'react-simple-star-rating';
 
 import './EditMovie.css';
 
 const EditMovie = () => {
+  const [rating, setRating] = useState(0);
+  const [comments, setComments] = useState('');
+  const [watched, setWatched] = useState(false);
+  const [movieObj, setMovieObj] = useState([]);
+
   const [foo, setFoo] = useState(
     'This is my sample content that could be edited'
   );
 
-  const [rating, setRating] = useState(0);
-
   // Catch Rating value
   const handleRating = (rate) => {
     setRating(rate);
+  };
+
+  const editMovie = () => {
+    console.log('I have been edited');
   };
 
   return (
@@ -64,9 +72,11 @@ const EditMovie = () => {
                 />
               </FormGroup>
 
-              <Button color='primary'>Submit Changes</Button>
+              <Button color='primary' onClick={editMovie}>
+                Submit Changes
+              </Button>
               <Button color='secondary' className='ms-3'>
-                Return to Watch List
+                <Link to='/watch-list'>Return to Watch List</Link>
               </Button>
             </fieldset>
           </Form>
