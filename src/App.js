@@ -13,6 +13,7 @@ function App() {
   const [odb, setOdb] = useState(true);
   const [watchList, setWatchList] = useState([]);
 
+  // call watch list API to establish existing watch list
   useEffect(() => {
     const someMovie = [
       {

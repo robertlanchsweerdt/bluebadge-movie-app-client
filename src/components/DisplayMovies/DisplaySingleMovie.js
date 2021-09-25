@@ -7,23 +7,23 @@ const ModalExample = (props) => {
   return (
     <div>
       <Modal isOpen={props.modal} toggle={props.toggle}>
-        <ModalHeader toggle={props.toggle}>{props.movie.Title}</ModalHeader>
+        <ModalHeader toggle={props.toggle}>{props.viewMovie.Title}</ModalHeader>
         <div className='container'>
           <div className='row'>
             <div className='col-12 col-lg-6'>
               <img
-                src={props.movie.Poster}
-                alt={props.movie.Title}
+                src={props.viewMovie.Poster}
+                alt={props.viewMovie.Title}
                 className='d-block mx-auto'
               />
             </div>
             <div className='col-12 col-lg-6'>
-              <p className='mt-3 mt-lg-0'>{props.movie.Plot}</p>
+              <p className='mt-3 mt-lg-0'>{props.viewMovie.Plot}</p>
               <ul className='list-unstyled'>
-                <li>Rating: {props.movie.Rated}</li>
-                <li>Released Date: {props.movie.Released}</li>
-                <li>Runtime: {props.movie.Runtime}</li>
-                <li>Genre: {props.movie.Genre}</li>
+                <li>Rating: {props.viewMovie.Rated}</li>
+                <li>Released Date: {props.viewMovie.Released}</li>
+                <li>Runtime: {props.viewMovie.Runtime}</li>
+                <li>Genre: {props.viewMovie.Genre}</li>
               </ul>
             </div>
           </div>
@@ -36,11 +36,19 @@ const ModalExample = (props) => {
         <ModalFooter>
           {props.odb ? (
             <>
-              <Button color='primary' onClick={props.addMovie}>
-                Add to Watch List
-              </Button>
-              <Button color='secondary' onClick={props.toggle}>
-                Cancel
+              {props.disableAddBtn ? (
+                <Button color='secondary'>Movie in Watch List</Button>
+              ) : (
+                <Button
+                  color='primary'
+                  onClick={(e) => props.addMovie(props.viewMovie)}
+                >
+                  Add to Watch List
+                </Button>
+              )}
+
+              <Button color='primary' onClick={props.toggle}>
+                Close
               </Button>
             </>
           ) : (

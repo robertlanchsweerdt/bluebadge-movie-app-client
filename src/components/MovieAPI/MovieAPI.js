@@ -7,10 +7,8 @@ const MovieAPI = (props) => {
   const API_KEY = '23278c5e';
   const baseURL = `http://www.omdbapi.com/?apikey=${API_KEY}&plot=full`;
 
-  const [title, setTitle] = useState('');
-  const [results, setResults] = useState([]);
-
-  const [fooMovie, setFooMovie] = useState([
+  const [searchTitle, setSearchTitle] = useState('');
+  const [results, setResults] = useState([
     {
       id: 0,
       Poster:
@@ -53,7 +51,7 @@ const MovieAPI = (props) => {
   };
 
   const fetchAPI = () => {
-    const url = `${baseURL}&t=${title}`;
+    const url = `${baseURL}&t=${searchTitle}`;
 
     console.log('Fetching -->', url);
 
@@ -69,12 +67,12 @@ const MovieAPI = (props) => {
       Plot: 'After the Rebels are brutally overpowered by the Empire on the ice planet Hoth, Luke Skywalker begins Jedi training with Yoda, while his friends are pursued across the galaxy by Darth Vader and bounty hunter Boba Fett',
     };
 
-    console.log('before -->', fooMovie);
+    console.log('before -->', results);
 
     // setFooMovie(fooMovie.concat(newData));
-    setFooMovie([...fooMovie, newData]);
+    setResults([...results, newData]);
 
-    console.log('after -->', fooMovie);
+    console.log('after -->', results);
 
     // fetch(url)
     //   .then((res) => res.json())
@@ -93,17 +91,15 @@ const MovieAPI = (props) => {
           type='text'
           name='search-omdb'
           required
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => setSearchTitle(e.target.value)}
         />
         <button onClick={fetchAPI}>SUBMIT</button>
 
         <DisplayMovieCards
-          mockAPI={fooMovie}
-          setFoo={setFooMovie}
-          addMovie={movieAddToList}
           odb={props.odb}
-          results={results}
-          setWatchList={props.setWatchList}
+          addMovie={movieAddToList}
+          movieList={results}
+          // setWatchList={props.setWatchList}
           watchList={props.watchList}
         />
       </Container>

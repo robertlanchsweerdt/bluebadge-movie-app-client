@@ -13,7 +13,7 @@ import './DisplayMovies.css';
 import DisplaySingleMovie from './DisplaySingleMovie';
 
 const DisplayMovies = (props) => {
-  const [movieAPI, setMovieAPI] = useState([]);
+  const [viewMovie, setViewMovie] = useState([]);
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
@@ -21,7 +21,7 @@ const DisplayMovies = (props) => {
   return (
     <>
       <ul className='movie-container mt-5 p-0'>
-        {props.mockAPI.map((movie, index) => {
+        {props.movieList.map((movie, index) => {
           return (
             <Card key={index}>
               <CardImg
@@ -47,22 +47,33 @@ const DisplayMovies = (props) => {
                 {/* if ODB the show these buttons */}
                 {props.odb ? (
                   <div className='d-flex gap-1'>
-                    <Button
-                      color='primary'
-                      onClick={(e) => {
-                        toggle();
-                        setMovieAPI(movie);
-                      }}
-                    >
-                      View
-                    </Button>
-
-                    <Button
-                      color='success'
-                      onClick={(e) => props.addMovie(movie)}
-                    >
-                      Add
-                    </Button>
+                    {props.watchList ? (
+                      props.watchList.some(
+                        (watchedMovie) => watchedMovie.Title === movie.Title
+                      ) ? (
+                        <Button color='secondary'>
+                          Movie Exists in Watch List
+                        </Button>
+                      ) : (
+                        <>
+                          <Button
+                            color='primary'
+                            onClick={(e) => {
+                              toggle();
+                              setViewMovie(movie);
+                            }}
+                          >
+                            View
+                          </Button>
+                          <Button
+                            color='success'
+                            onClick={(e) => props.addMovie(movie)}
+                          >
+                            Add
+                          </Button>
+                        </>
+                      )
+                    ) : null}
                   </div>
                 ) : (
                   <div className='d-flex gap-1'>
@@ -70,7 +81,7 @@ const DisplayMovies = (props) => {
                       color='primary'
                       onClick={(e) => {
                         toggle();
-                        setMovieAPI(movie);
+                        setViewMovie(movie);
                       }}
                     >
                       View
@@ -89,11 +100,11 @@ const DisplayMovies = (props) => {
       <DisplaySingleMovie
         toggle={toggle}
         modal={modal}
-        movie={movieAPI}
-        setFoo={props.setFoo}
         odb={props.odb}
+        viewMovie={viewMovie}
         addMovie={props.addMovie}
         removeMovie={props.removeMovie}
+        disableAddBtn={props.disableAddBtn}
       />
     </>
   );
