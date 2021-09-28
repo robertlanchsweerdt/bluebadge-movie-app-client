@@ -26,6 +26,7 @@ function App() {
   }, []);
 
   const updateToken = (newToken) => {
+    console.log('Update token');
     localStorage.setItem('token', newToken);
     settoken(newToken);
     console.log(token);
