@@ -13,10 +13,37 @@ import {
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
-const NavMenu = () => {
+const NavMenu = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
+  const redirect = () => {
+    setTimeout(function(){
+      window.location.href="/"
+    }, 1000);
+  }
+  
+  const LogoutView = () => {
+  return props.token !== undefined ?
+    <Collapse isOpen={isOpen} navbar>
+      <Nav className='ms-auto align-items-center' navbar>
+        <NavItem>
+          <Link to='/movie-api'>Search Movies</Link>
+        </NavItem>
+        <NavItem className='px-5'>
+          <Link to='/watch-list'>Watch List</Link>
+        </NavItem>
+        <NavItem>
+          <Link to='/account'>Account</Link>
+        </NavItem>
+        <NavItem className='px-5'>
+          <Button color="danger" variant="link" onClick={function(){props.clearToken(); redirect()}}>Logout</Button>
+        </NavItem>
+      </Nav>
+    </Collapse> 
+  : null
+}
+ 
   return (
     <Container className='mt-5'>
       <Navbar expand='md' dark>
@@ -24,22 +51,12 @@ const NavMenu = () => {
           My Movie App
         </Link>
         <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className='ms-auto align-items-center' navbar>
-            <NavItem>
-              <Link to='/movie-api'>Search Movies</Link>
-            </NavItem>
-            <NavItem className='px-5'>
-              <Link to='/watch-list'>Watch List</Link>
-            </NavItem>
-            <Button color='danger' text-color='white'>
-              <Link to='/sign-in'>Sign In</Link>
-            </Button>
-          </Nav>
-        </Collapse>
+        {LogoutView()}
       </Navbar>
     </Container>
   );
 };
+
+
 
 export default NavMenu;
