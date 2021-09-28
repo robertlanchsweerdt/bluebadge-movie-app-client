@@ -18,10 +18,14 @@ const DisplayMovies = (props) => {
 
   const toggle = () => setModal(!modal);
 
+  console.log(props);
+
   return (
     <>
       <ul className='movie-container mt-5 p-0'>
         {props.movieList.map((movie, index) => {
+          console.log(movie);
+
           return (
             <Card key={index}>
               <CardImg
@@ -49,7 +53,8 @@ const DisplayMovies = (props) => {
                   <div className='d-flex gap-1'>
                     {props.watchList ? (
                       props.watchList.some(
-                        (watchedMovie) => watchedMovie.Title === movie.Title
+                        (watchedMovie) =>
+                          watchedMovie.movie.Title === movie.Title
                       ) ? (
                         <Button color='secondary'>
                           Movie Exists in Watch List

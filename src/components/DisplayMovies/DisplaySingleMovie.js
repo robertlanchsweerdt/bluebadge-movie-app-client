@@ -27,11 +27,6 @@ const ModalExample = (props) => {
               </ul>
             </div>
           </div>
-          {props.odb ? null : (
-            <div className='col-12'>
-              <p>Comments</p>
-            </div>
-          )}
         </div>
         <ModalFooter>
           {props.odb ? (
@@ -47,7 +42,7 @@ const ModalExample = (props) => {
                 </Button>
               )}
 
-              <Button color='primary' onClick={props.toggle}>
+              <Button color='secondary' onClick={props.toggle}>
                 Close
               </Button>
             </>

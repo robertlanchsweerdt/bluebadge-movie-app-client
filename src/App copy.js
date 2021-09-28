@@ -12,34 +12,28 @@ import EditMovie from './components/EditMovie/EditMovie';
 function App() {
   const [odb, setOdb] = useState(true);
   const [watchList, setWatchList] = useState([]);
-  const [addMovie, setAddMovie] = useState([]);
-  const [editMovie, setEditMovie] = useState([]);
-  const [removeMovie, setRemoveMovie] = useState([]);
-  const [refresh, setRefresh] = useState('');
-
   const [sessionToken, setSessionToken] = useState(
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjMyNzU0NTM0LCJleHAiOjE2MzI4NDA5MzR9.tj-Px3nK21nNVoWpuWB-nCc8JpWAkgU3g7f9dcqkJME'
   );
 
-  // fetching all movies in watch list to display
+  // call watch list API to establish existing watch list
   useEffect(() => {
-    console.log('fetch watch list');
-    console.log('Add movie from useEffect -->', addMovie);
-    const url = 'http://localhost:4000/movie/';
+    const someMovie = [
+      {
+        id: 0,
+        Poster:
+          'https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg',
+        Title: 'Star Wars',
+        Rated: 'PG',
+        Released: '25 May 1977',
+        Runtime: '131 min',
+        Genre: 'Action, Adventure, Fantasy',
+        Plot: "Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee and two droids to save the galaxy from the Empire's world-destroying battle station, while also attempting to rescue Princess Leia from the mysterious Darth Vad",
+      },
+    ];
 
-    fetch(url, {
-      method: 'GET',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Authorization: sessionToken,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setWatchList(data);
-        console.log('Set watch list -->', data);
-      });
-  }, [removeMovie, addMovie, refresh]); // renders when a removeMovie state changes
+    setWatchList(someMovie);
+  }, []);
 
   return (
     <div className='App'>
@@ -55,7 +49,6 @@ function App() {
               setOdb={setOdb}
               setWatchList={setWatchList}
               watchList={watchList}
-              setAddMovie={setAddMovie}
               sessionToken={sessionToken}
             />
           </Route>
@@ -65,19 +58,11 @@ function App() {
               setOdb={setOdb}
               watchList={watchList}
               setWatchList={setWatchList}
-              setEditMovie={setEditMovie}
-              removeMovie={removeMovie}
-              setRemoveMovie={setRemoveMovie}
-              sessionToken={sessionToken}
+              setSessionToken={sessionToken}
             />
           </Route>
           <Route exact path='/edit'>
-            <EditMovie
-              editMovie={editMovie}
-              setEditMovie={setEditMovie}
-              setRefresh={setRefresh}
-              sessionToken={sessionToken}
-            />
+            <EditMovie />
           </Route>
           <Route exact path='/sign-in'>
             <SignIn />

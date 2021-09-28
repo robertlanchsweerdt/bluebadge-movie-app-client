@@ -1,37 +1,77 @@
 import React, { useState } from 'react';
-import { Container, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import {
+  Container,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 import { Rating, RatingView } from 'react-simple-star-rating';
 
 import './EditMovie.css';
 
-const EditMovie = () => {
-  const [rating, setRating] = useState(0);
-  const [comments, setComments] = useState('');
+const EditMovie = (props) => {
+  const [rating, setRating] = useState(props.editMovie.user_rating);
+  const [comments, setComments] = useState(props.editMovie.comments);
   const [watched, setWatched] = useState(false);
-  const [movieObj, setMovieObj] = useState([]);
+  const [modal, setModal] = useState(false);
 
-  const [foo, setFoo] = useState(
-    'This is my sample content that could be edited'
-  );
+  const toggle = () => {
+    setModal(!modal);
+  };
 
   // Catch Rating value
   const handleRating = (rate) => {
     setRating(rate);
   };
 
-  const editMovie = () => {
-    console.log('I have been edited');
+  // edit movie and update database
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('handle submit');
+
+    const reqBody = {
+      user_rating: rating,
+      watched,
+      comments,
+    };
+
+    const url = `http://localhost:4000/movie/${props.editMovie.id}`;
+
+    fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(reqBody),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        Authorization: props.sessionToken,
+      }),
+    }).then((res) => {
+      if (res.status === 200) {
+        console.log('It worked');
+        props.setRefresh('triggered');
+        toggle();
+      } else {
+        console.log('Save Failed');
+      }
+    });
   };
 
-  return (
+  console.log(props);
+
+  return props.editMovie.movie ? (
     <Container className='mt-5'>
       <div className='edit-movie-wrapper'>
         <div className='edit-movie-img'>
           <img
-            src='https://m.media-amazon.com/images/M/MV5BOWZlMjFiYzgtMTUzNC00Y2IzLTk1NTMtZmNhMTczNTk0ODk1XkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SX300.jpg'
-            alt=''
+            src={props.editMovie.movie.Poster}
+            alt={props.editMovie.movie.Title}
             className='d-block mx-auto w-100'
           />
         </div>
@@ -40,18 +80,38 @@ const EditMovie = () => {
 
         <div className='edit-form mt-3 mt-lg-0'>
           <ul className='list-unstyled'>
-            <li>Movie: Return of the Jedi</li>
-            <li>Rating: PG</li>
-            <li>Released Date: Sep 21, 2021</li>
-            <li>Runtime: 60 minutes</li>
-            <li>Genre: Action</li>
+            <li>Movie: {props.editMovie.movie.Title}</li>
+            <li>Rating: {props.editMovie.movie.Rated}</li>
+            <li>Released Date: {props.editMovie.movie.Released}</li>
+            <li>Runtime: {props.editMovie.movie.Runtime} minutes</li>
+            <li>Genre: {props.editMovie.movie.Genre}</li>
           </ul>
+          <br />
 
-          <Form>
+          <div className='d-flex'>
+            <p className='me-3'>Watched:</p>
+            {props.editMovie.watched ? <p>Yes</p> : <p>No</p>}
+          </div>
+
+          <Form className='mt-3' onSubmit={handleSubmit}>
             <fieldset className='border border-secondary p-3'>
               <legend className='fs-5'>
                 <u>Fields Eligible for Editing</u>
               </legend>
+
+              <FormGroup className='d-flex'>
+                <Label className='me-3'>Watched?:</Label>
+                <Input
+                  type='select'
+                  name='select'
+                  onChange={(e) => setWatched(e.target.value)}
+                >
+                  <option>Select YES or NO</option>
+                  <option value='false'>No</option>
+                  <option value='true'>Yes</option>
+                </Input>
+              </FormGroup>
+
               <FormGroup className='d-flex'>
                 <Label className='me-3'>Star Rating:</Label>
                 <Rating
@@ -67,12 +127,12 @@ const EditMovie = () => {
                   type='textarea'
                   name='text'
                   id='exampleText'
-                  value={foo}
-                  onChange={(e) => setFoo(e.target.value)}
+                  value={comments}
+                  onChange={(e) => setComments(e.target.value)}
                 />
               </FormGroup>
 
-              <Button color='primary' onClick={editMovie}>
+              <Button color='primary' onClick={handleSubmit}>
                 Submit Changes
               </Button>
               <Button color='secondary' className='ms-3'>
@@ -82,8 +142,20 @@ const EditMovie = () => {
           </Form>
         </div>
       </div>
+      {/* MODAL */}
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle} color='success'>
+          SUCCESS
+        </ModalHeader>
+        <ModalBody>Your edit has been successfully saved!</ModalBody>
+        <ModalFooter>
+          <Button color='danger' onClick={toggle}>
+            Close
+          </Button>
+        </ModalFooter>
+      </Modal>
     </Container>
-  );
+  ) : null;
 };
 
 export default EditMovie;
