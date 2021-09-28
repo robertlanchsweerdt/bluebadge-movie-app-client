@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalFooter } from 'reactstrap';
 
 import './DisplaySingleMovie.css';
@@ -28,22 +29,36 @@ const ModalExample = (props) => {
           </div>
         </div>
         <ModalFooter>
-          <>
-            {props.disableAddBtn ? (
-              <Button color='secondary'>Movie in Watch List</Button>
-            ) : (
-              <Button
-                color='primary'
-                onClick={(e) => props.addMovie(props.viewMovie)}
-              >
-                Add to Watch List
-              </Button>
-            )}
+          {props.odb ? (
+            <>
+              {props.disableAddBtn ? (
+                <Button color='secondary'>Movie in Watch List</Button>
+              ) : (
+                <Button
+                  color='primary'
+                  onClick={(e) => props.addMovie(props.viewMovie)}
+                >
+                  Add to Watch List
+                </Button>
+              )}
 
-            <Button color='secondary' onClick={props.toggle}>
-              Close
-            </Button>
-          </>
+              <Button color='secondary' onClick={props.toggle}>
+                Close
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button color='primary'>
+                <Link to='/edit'>Edit</Link>
+              </Button>
+              <Button color='warning' onClick={props.removeMovie}>
+                Remove from Watch List
+              </Button>
+              <Button color='secondary' onClick={props.toggle}>
+                Cancel
+              </Button>
+            </>
+          )}
         </ModalFooter>
       </Modal>
     </div>

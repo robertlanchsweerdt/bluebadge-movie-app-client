@@ -13,7 +13,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-import { Rating, RatingView } from 'react-simple-star-rating';
+import { Rating } from 'react-simple-star-rating';
 
 import './EditMovie.css';
 
@@ -25,6 +25,7 @@ const EditMovie = (props) => {
 
   const toggle = () => {
     setModal(!modal);
+    props.setRefresh('');
   };
 
   // Catch Rating value

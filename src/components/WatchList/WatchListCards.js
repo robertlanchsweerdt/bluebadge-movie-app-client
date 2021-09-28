@@ -13,7 +13,6 @@ import WatchListSingleMovie from './WatchListSingleMovie';
 
 const DisplayMovies = (props) => {
   const [viewMovie, setViewMovie] = useState([]);
-  // const [modal, setModal] = useState(false);
 
   const toggle = () => props.setModal(!props.modal);
 
@@ -42,6 +41,11 @@ const DisplayMovies = (props) => {
                 <CardText className='text-dark movie-story'>
                   {movie.movie.Plot}
                 </CardText>
+                {movie.watched ? (
+                  <CardText className='text-dark movie-story text-center text-white d-block bg-success py-2 px-4'>
+                    Watched
+                  </CardText>
+                ) : null}
 
                 <div className='d-flex gap-1'>
                   <Button

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container } from 'reactstrap';
 import DisplayMovieCards from '../DisplayMovies/DisplayMovieCards';
 
@@ -8,8 +8,10 @@ const MovieAPI = (props) => {
   const baseURL = `http://www.omdbapi.com/?apikey=${API_KEY}&plot=full`;
   const watchListURL = 'http://localhost:4000/movie';
 
+  const [modal, setModal] = useState(false);
   const [searchTitle, setSearchTitle] = useState('');
   const [results, setResults] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   const movieAddToList = (movie) => {
     props.setAddMovie([movie]);
@@ -25,6 +27,9 @@ const MovieAPI = (props) => {
         'Content-Type': 'application/json',
         Authorization: props.sessionToken,
       }),
+    }).then(() => {
+      setModal(false);
+      setRefresh(false);
     });
   };
 
@@ -57,9 +62,12 @@ const MovieAPI = (props) => {
 
         <DisplayMovieCards
           odb={props.odb}
+          modal={modal}
+          setModal={setModal}
           addMovie={movieAddToList}
           movieList={results}
           watchList={props.watchList}
+          setRefresh={setRefresh}
         />
       </Container>
     </>

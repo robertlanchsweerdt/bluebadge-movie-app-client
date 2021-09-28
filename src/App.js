@@ -18,13 +18,11 @@ function App() {
   const [refresh, setRefresh] = useState('');
 
   const [sessionToken, setSessionToken] = useState(
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjMyNzU0NTM0LCJleHAiOjE2MzI4NDA5MzR9.tj-Px3nK21nNVoWpuWB-nCc8JpWAkgU3g7f9dcqkJME'
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjMyODMzOTE1LCJleHAiOjE2MzI5MjAzMTV9.jEmQ7jky9AfGZOi6k--gh7_umR-sP7NKSsfP31YZK98'
   );
 
   // fetching all movies in watch list to display
   useEffect(() => {
-    console.log('fetch watch list');
-    console.log('Add movie from useEffect -->', addMovie);
     const url = 'http://localhost:4000/movie/';
 
     fetch(url, {
@@ -37,7 +35,6 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setWatchList(data);
-        console.log('Set watch list -->', data);
       });
   }, [removeMovie, addMovie, refresh]); // renders when a removeMovie state changes
 

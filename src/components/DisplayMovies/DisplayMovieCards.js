@@ -14,18 +14,13 @@ import DisplaySingleMovie from './DisplaySingleMovie';
 
 const DisplayMovies = (props) => {
   const [viewMovie, setViewMovie] = useState([]);
-  const [modal, setModal] = useState(false);
 
-  const toggle = () => setModal(!modal);
-
-  console.log(props);
+  const toggle = () => props.setModal(!props.modal);
 
   return (
     <>
       <ul className='movie-container mt-5 p-0'>
         {props.movieList.map((movie, index) => {
-          console.log(movie);
-
           return (
             <Card key={index}>
               <CardImg
@@ -72,7 +67,10 @@ const DisplayMovies = (props) => {
                           </Button>
                           <Button
                             color='success'
-                            onClick={(e) => props.addMovie(movie)}
+                            onClick={(e) => {
+                              props.addMovie(movie);
+                              props.setRefresh(true);
+                            }}
                           >
                             Add
                           </Button>
@@ -104,8 +102,7 @@ const DisplayMovies = (props) => {
       </ul>
       <DisplaySingleMovie
         toggle={toggle}
-        modal={modal}
-        odb={props.odb}
+        modal={props.modal}
         viewMovie={viewMovie}
         addMovie={props.addMovie}
         removeMovie={props.removeMovie}
