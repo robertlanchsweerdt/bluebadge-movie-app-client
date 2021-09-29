@@ -51,9 +51,7 @@ const DisplayMovies = (props) => {
                         (watchedMovie) =>
                           watchedMovie.movie.Title === movie.Title
                       ) ? (
-                        <Button color='secondary'>
-                          Movie Exists in Watch List
-                        </Button>
+                        <Button color='info'>Movie Exists in Watch List</Button>
                       ) : (
                         <>
                           <Button
