@@ -38,7 +38,7 @@ const Home = () => {
               rel='noreferrer'
               className='text-warning'
             >
-              Robert Lanchsweert
+              Robert Lanchsweerdt
             </a>
           </p>
           <Button
