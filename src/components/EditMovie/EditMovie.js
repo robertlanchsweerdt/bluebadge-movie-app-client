@@ -137,7 +137,7 @@ const EditMovie = (props) => {
               <Button color='primary' onClick={handleSubmit}>
                 Submit Changes
               </Button>
-              <Button color='secondary' className='ms-3'>
+              <Button color='secondary' className='mt-3 mt-lg-0 ms-lg-3'>
                 <Link to='/watch-list'>Return to Watch List</Link>
               </Button>
             </fieldset>

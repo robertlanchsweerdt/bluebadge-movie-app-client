@@ -6,13 +6,21 @@ import DisplayMovieCards from '../DisplayMovies/DisplayMovieCards';
 const MovieAPI = (props) => {
   props.setOdb(true);
   const API_KEY = '23278c5e';
-  const baseURL = `https://cors-anywhere.herokuapp.com/http://www.omdbapi.com/?apikey=${API_KEY}&plot=full`;
-  const watchListURL = `${APIURL}/movie`;
 
+  // ******
+  // heroku URL
+  // ******
+  const baseURL = `https://cors-anywhere.herokuapp.com/http://www.omdbapi.com/?apikey=${API_KEY}&plot=full`;
+
+  // ******
+  // localhost URL
+  // ******
+  //const baseURL = `http://www.omdbapi.com/?apikey=${API_KEY}&plot=full`;
+
+  const watchListURL = `${APIURL}/movie`;
   const [modal, setModal] = useState(false);
   const [searchTitle, setSearchTitle] = useState('');
   const [results, setResults] = useState([]);
-  const [refresh, setRefresh] = useState(false);
 
   const movieAddToList = (movie) => {
     props.setAddMovie([movie]);
@@ -30,7 +38,7 @@ const MovieAPI = (props) => {
       }),
     }).then(() => {
       setModal(false);
-      setRefresh(false);
+      props.setRefresh('');
     });
   };
 
@@ -68,7 +76,7 @@ const MovieAPI = (props) => {
           addMovie={movieAddToList}
           movieList={results}
           watchList={props.watchList}
-          setRefresh={setRefresh}
+          setRefresh={props.setRefresh}
         />
       </Container>
     </>

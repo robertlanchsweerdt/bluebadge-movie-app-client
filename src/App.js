@@ -74,7 +74,7 @@ function App() {
               setWatchList={setWatchList}
               watchList={watchList}
               setAddMovie={setAddMovie}
-              // sessionToken={sessionToken}
+              setRefresh={setRefresh}
               token={token}
             />
           </Route>
