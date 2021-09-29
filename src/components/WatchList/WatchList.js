@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Container } from 'reactstrap';
+import APIURL from '../../helpers/environment';
 import WatchListCards from './WatchListCards';
 
 const WatchList = (props) => {
@@ -9,7 +10,7 @@ const WatchList = (props) => {
 
   // delete movie from database
   const movieRemoveFromList = (movie) => {
-    const url = `http://localhost:4000/movie/${movie.id}`;
+    const url = `${APIURL}/movie/${movie.id}`;
 
     props.setRemoveMovie([movie]);
     setModal(false);

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Container } from 'reactstrap';
+import APIURL from '../../helpers/environment';
 import DisplayMovieCards from '../DisplayMovies/DisplayMovieCards';
 
 const MovieAPI = (props) => {
   props.setOdb(true);
   const API_KEY = '23278c5e';
   const baseURL = `http://www.omdbapi.com/?apikey=${API_KEY}&plot=full`;
-  const watchListURL = 'http://localhost:4000/movie';
+  const watchListURL = `${APIURL}/movie`;
 
   const [modal, setModal] = useState(false);
   const [searchTitle, setSearchTitle] = useState('');

@@ -9,6 +9,7 @@ import WatchList from './components/WatchList/WatchList';
 import SignIn from './components/SignIn/SignIn';
 import AccountIndex from './components/Account/AccountIndex';
 import EditMovie from './components/EditMovie/EditMovie';
+import APIURL from './helpers/environment';
 
 function App() {
   const [odb, setOdb] = useState(true);
@@ -39,7 +40,7 @@ function App() {
 
   // fetching all movies in watch list to display
   useEffect(() => {
-    const url = 'http://localhost:4000/movie/';
+    const url = `${APIURL}/movie/`;
 
     fetch(url, {
       method: 'GET',

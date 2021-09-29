@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom';
 import { Rating } from 'react-simple-star-rating';
 
 import './EditMovie.css';
+import APIURL from '../../helpers/environment';
 
 const EditMovie = (props) => {
   const [rating, setRating] = useState(props.editMovie.user_rating);
@@ -44,7 +45,7 @@ const EditMovie = (props) => {
       comments,
     };
 
-    const url = `http://localhost:4000/movie/${props.editMovie.id}`;
+    const url = `${APIURL}/movie/${props.editMovie.id}`;
 
     fetch(url, {
       method: 'PUT',
